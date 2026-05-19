@@ -13,7 +13,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //-- notification service object--//
   final NotificationService _notificationService = NotificationService();
-
   //-- to check wether notification is scheduled or not--//
   bool _isScheduled = false;
 
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ReusableElvatedButton(
               text: "Schedule Daily Notification",
               onPressed: () async {
-                await _notificationService.schedule8PMNotification();
+                await _notificationService.scheduleSpecificTimeNotification();
                 setState(() { _isScheduled = true; });
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar( content: Text('Daily notification scheduled successfully'), duration: Duration(seconds: 2),),);
               },
@@ -62,16 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 debugPrint("Urgent Notfication Started");
                 await _notificationService.showNotficationUrgent();
-              },
-            ),
-
-            //--Show  exact notfication at 8 PM
-            ReusableElvatedButton(
-              text: "Schedule EXACT Notification",
-              onPressed: () async {
-                await _notificationService.scheduleExact8PMNotification();
-                ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Exact notification scheduled')),
-                );
               },
             ),
 

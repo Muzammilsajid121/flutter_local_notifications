@@ -29,17 +29,16 @@ class NotificationService {
       iOS: iosInitializationSettings,
     );
 
-    
     await _notificationsPlugin.initialize(
     initializationSettings,
     onDidReceiveNotificationResponse: (details) {},
     );
 
-    await _notificationsPlugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>() ?.requestNotificationsPermission();
+    await _notificationsPlugin.resolvePlatformSpecificImplementation< AndroidFlutterLocalNotificationsPlugin>() ?.requestNotificationsPermission();
 
   }
 
+  //-- Scheduling a daily notification
   Future<void> scheduleDailyNotification({
     required String title,
     required String body,
@@ -101,16 +100,18 @@ class NotificationService {
     debugPrint('Scheduled Date String: ${scheduledDate.toString()}');
   }
 
+  //-- Cancelling notification
   Future<void> cancelNotification(int id) async {
     await _notificationsPlugin.cancel(id);
   }
 
+  //-- Cancelling all notifications
   Future<void> cancelAllNotifications() async {
     await _notificationsPlugin.cancelAll();
   }
 
   //-- Method to schedule notification for Specific Time
-  Future<void> schedule8PMNotification() async {
+  Future<void> scheduleSpecificTimeNotification() async {
     await scheduleDailyNotification(
       title: 'Daily Reminder',
       body: 'This is your daily notification!',
@@ -118,7 +119,6 @@ class NotificationService {
       id: 0,
     );
   }
-  
 
   //-- Method to show notification in 10 seconds
   Future<void> showTestNotificationIn10Seconds() async {
@@ -220,15 +220,6 @@ class NotificationService {
   );
 
   debugPrint('Exact notification scheduled at: $scheduledDate');
-}
-
-Future<void> scheduleExact8PMNotification() async {
-  await scheduleExactNotification(
-    title: 'Exact Reminder',
-    body: 'This notification will fire EXACTLY on time',
-    time: const TimeOfDay(hour: 16, minute: 28),
-    id: 200,
-  );
 }
 
 
